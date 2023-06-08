@@ -1,6 +1,8 @@
 <script setup>
 import { reactive, ref } from 'vue'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const ruleFormRef = ref()
 const ruleForm = reactive({
     phoneNumber: '',
@@ -28,7 +30,7 @@ const submitForm = (formEl) => {
     formEl.validate(valid => {
         if (valid) {
             //跳转index
-            console.log('ok');
+            router.push('/')
         } else {
             // 校验未通过
             alert('校验未通过')
