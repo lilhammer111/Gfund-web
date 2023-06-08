@@ -1,5 +1,5 @@
 import { createApp } from 'vue'
-// import './style.css'
+import './style.css'
 // 重置默认样式
 import 'normalize.css/normalize.css'
 

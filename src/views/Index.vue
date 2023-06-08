@@ -6,21 +6,21 @@ import MainContent from './layout/main_content/MainContent.vue';
 </script>
 
 <template>
-    <div class="layout-container">
-        <div class="aside-nav">
-            <AsideNav></AsideNav>
-        </div>
-        <div>
-            <HeaderNav></HeaderNav>
-            <MainContent></MainContent>
-        </div>
+    <div class="common-layout">
+        <el-container>
+            <el-aside width="200px">
+                <AsideNav></AsideNav>
+            </el-aside>
+            <el-container>
+                <el-header>
+                    <HeaderNav></HeaderNav>
+                </el-header>
+                <el-main>
+                    <MainContent></MainContent>
+                </el-main>
+            </el-container>
+        </el-container>
     </div>
 </template>
 
-<style scoped>
-.layout-container {
-    display: flex;
-    min-height: 100vh;
-    /* justify-content: stretch; */
-}
-</style>
+<style scoped></style>

@@ -15,8 +15,8 @@ const handleClose = (key, keyPath) => {
 </script>
 
 <template>
-    <el-menu active-text-color="#ffd04b" background-color="#545c64" class="el-menu-vertical" default-active="2"
-        text-color="#fff" unique-opened="ture" @open="handleOpen" @close="handleClose">
+    <el-menu active-text-color="#ffd04b" background-color="#2E86C1" class="el-menu-vertical" default-active="2"
+        text-color="#fff" @open="handleOpen" @close="handleClose">
         <el-sub-menu index="1">
             <template #title>
                 <el-icon>
