@@ -24,7 +24,8 @@
 </template>
 
 <style scoped>
-.el-menu-horizon {
+/* .el-menu-horizon {
     min-width: calc(100vh - 200px);
-}
+    position: relative;
+} */
 </style>
