@@ -1,6 +1,7 @@
 <script setup>
 import { reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { setToken } from '../../utils/auth'
 
 const router = useRouter()
 const ruleFormRef = ref()
@@ -27,10 +28,19 @@ const rules = reactive({
 
 
 const submitForm = (formEl) => {
-    formEl.validate(valid => {
+    formEl.validate(async valid => {
         if (valid) {
-            //跳转index
-            router.push('/')
+            // 发送登陆请求
+            let res = await login(ruleForm)
+            console.log(res);
+            const { status, token } = res.data
+            if (status === 1) {
+                //缓存token
+                setToken(token)
+                // 跳转index
+                router.push('/')
+            }
+
         } else {
             // 校验未通过
             alert('校验未通过')

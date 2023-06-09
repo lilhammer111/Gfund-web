@@ -1,11 +1,18 @@
 <script setup>
 
 import { ref } from 'vue'
+import { useRouter } from 'vue-router';
+const router = useRouter()
+const logout = () => {
+    router.push('/login')
+}
+
 
 const activeIndex = ref('1')
 const handleSelect = (key, keyPath) => {
     console.log(key, keyPath)
 }
+
 
 
 </script>
@@ -17,7 +24,7 @@ const handleSelect = (key, keyPath) => {
         <el-sub-menu index="1">
             <template #title>账户</template>
             <el-menu-item index="2-1">权限管理</el-menu-item>
-            <el-menu-item index="2-2">退出登录</el-menu-item>
+            <el-menu-item index="2-2" @click="logout">退出登录</el-menu-item>
         </el-sub-menu>
 
     </el-menu>

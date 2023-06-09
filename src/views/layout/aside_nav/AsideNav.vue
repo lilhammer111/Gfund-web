@@ -5,37 +5,34 @@ import {
     Location,
     Setting,
 } from '@element-plus/icons-vue'
-const handleOpen = (key, keyPath) => {
-    console.log(key, keyPath)
-}
-const handleClose = (key, keyPath) => {
-    console.log(key, keyPath)
-}
+
+import { ref, onMounted } from 'vue';
+import { getNav } from '../../../api/api'
+// const handleOpen = (key, keyPath) => {
+//     console.log(key, keyPath)
+// }
+// const handleClose = (key, keyPath) => {
+//     console.log(key, keyPath)
+// }
+
+
+let items = ref([])
+
+
+onMounted(async () => {
+    let res = await getNav()
+    items.value = res.data.res
+})
 
 </script>
 
 <template>
-    <el-menu active-text-color="#ffd04b" background-color="#2E86C1" class="el-menu-vertical" default-active="2"
-        text-color="#fff" @open="handleOpen" @close="handleClose">
-        <el-sub-menu index="1">
-            <template #title>
-                <el-icon>
-                    <location />
-                </el-icon>
-                <span>Navigator One</span>
-            </template>
-            <el-menu-item-group title="Group One">
-                <el-menu-item index="1-1">item one</el-menu-item>
-                <el-menu-item index="1-2">item two</el-menu-item>
-            </el-menu-item-group>
-            <el-menu-item-group title="Group Two">
-                <el-menu-item index="1-3">item three</el-menu-item>
-            </el-menu-item-group>
-            <el-sub-menu index="1-4">
-                <template #title>item four</template>
-                <el-menu-item index="1-4-1">item one</el-menu-item>
-            </el-sub-menu>
-        </el-sub-menu>
+    <el-menu active-text-color="#ffd04b" background-color="#545c64" class="el-menu-vertical" default-active="2"
+        text-color="#fff" @open="handleOpen" @close="handleClose" router>
+        <el-menu-item :index="item.path" v-for="item in items" :key="item.path">
+            <el-icon><icon-menu></icon-menu></el-icon>
+            <span>首页{{ item.title }}</span>
+        </el-menu-item>
     </el-menu>
 </template>
 
