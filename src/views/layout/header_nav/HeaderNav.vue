@@ -2,9 +2,14 @@
 
 import { ref } from 'vue'
 import { useRouter } from 'vue-router';
+import { deleteToken } from '../../../utils/auth';
 const router = useRouter()
 const logout = () => {
     router.push('/login')
+    //清除token
+    deleteToken()
+    //清除store
+
 }
 
 

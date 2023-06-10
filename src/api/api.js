@@ -14,3 +14,10 @@ export const getNav = () => {
         url: 'nav'
     })
 }
+
+export const sendMsgCode = (phone) => {
+    return httpInstance({
+        url: 'sms_codes/' + phone,
+        method: 'get',
+    })
+}

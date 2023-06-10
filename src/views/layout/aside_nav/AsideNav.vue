@@ -1,28 +1,15 @@
 <script setup>
-import {
-    Document,
-    Menu as IconMenu,
-    Location,
-    Setting,
-} from '@element-plus/icons-vue'
-
+import { Menu as IconMenu } from '@element-plus/icons-vue'
 import { ref, onMounted } from 'vue';
-import { getNav } from '../../../api/api'
-// const handleOpen = (key, keyPath) => {
-//     console.log(key, keyPath)
-// }
-// const handleClose = (key, keyPath) => {
-//     console.log(key, keyPath)
-// }
-
+// import { getNav } from '../../../api/api'
 
 let items = ref([])
 
 
-onMounted(async () => {
-    let res = await getNav()
-    items.value = res.data.res
-})
+// onMounted(async () => {
+//     let res = await getNav()
+//     items.value = res.data.res
+// })
 
 </script>
 

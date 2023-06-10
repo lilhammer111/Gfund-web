@@ -3,7 +3,7 @@ import { getToken } from "./auth";
 
 // 创建新的axios实例
 export const httpInstance = axios.create({
-    baseURL: 'baseURL',
+    baseURL: 'http://127.0.0.1:8000/',
     timeout: 1000,
 })
 //请求拦截器
