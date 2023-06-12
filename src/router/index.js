@@ -36,7 +36,7 @@ const routes = [
         path: '/login',
         name: 'login',
         // 懒加载
-        component: () => import('../views/login/Login.vue')
+        component: () => import('../views/login/LoginPage.vue')
     },
 ]
 
@@ -45,39 +45,39 @@ const router = createRouter({
     history: createWebHashHistory()
 })
 
-router.beforeEach(async (to, from, next) => {
-    if (to.path === '/login') {
-        next()
-    } else {
-        if (store && store.nav.length == 0) {
-            // 发送请求获取数据
-            const res = await getNav()
-            // 数据缓存
-            store.setNav(res.data)
-            // 按照不同权限动态路由添加
-            // const route = res.data.route
-            // router.addRoute('index', route)
-            const indexRoutes = addIndexSonRoute(res.data)
-            router.addRoute(indexRoutes)
-            // next啥意思？
-            next({ path: to.path })
-        } else {
-            next()
-        }
+// router.beforeEach(async (to, from, next) => {
+//     if (to.path === '/login') {
+//         next()
+//     } else {
+//         if (store && store.nav.length == 0) {
+//             // 发送请求获取数据
+//             const res = await getNav()
+//             // 数据缓存
+//             store.setNav(res.data)
+//             // 按照不同权限动态路由添加
+//             // const route = res.data.route
+//             // router.addRoute('index', route)
+//             const indexRoutes = addIndexSonRoute(res.data)
+//             router.addRoute(indexRoutes)
+//             // next啥意思？
+//             next({ path: to.path })
+//         } else {
+//             next()
+//         }
 
-    }
-})
+//     }
+// })
 
-const addIndexSonRoute = (data) => {
-    let indexRoutes = routes.filter(v => v.path == '/')[0]
-    data.forEach(item => {
-        indexRoutes.children.push({
-            path: item.path,
-            name: item.name,
-            component: () => import(`../views/layout/main_content/${item.component}.vue`)
-        })
-    })
-    return indexRoutes
-}
+// const addIndexSonRoute = (data) => {
+//     let indexRoutes = routes.filter(v => v.path == '/')[0]
+//     data.forEach(item => {
+//         indexRoutes.children.push({
+//             path: item.path,
+//             name: item.name,
+//             component: () => import(`../views/layout/main_content/${item.component}.vue`)
+//         })
+//     })
+//     return indexRoutes
+// }
 
 export default router

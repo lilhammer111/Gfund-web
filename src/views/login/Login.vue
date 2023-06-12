@@ -2,7 +2,7 @@
 import { reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { setToken } from '../../utils/auth'
-import { sendMsgCode } from '../../api'
+import { sendMsgCode } from '../../api/api'
 
 const router = useRouter()
 const ruleFormRef = ref()
@@ -12,6 +12,7 @@ const ruleForm = reactive({
     mac: ''
 })
 
+const code_disabled = ref(true)
 
 const rules = reactive({
     phoneNumber: [
@@ -22,10 +23,10 @@ const rules = reactive({
         { required: true, message: '请输入密码', trigger: 'blur' },
         // { min: 8, max: 16, message: '密码错误', trigger: 'blur' },
     ],
-    mac: [
-        { required: true, message: '请输入验证码', trigger: 'blur' },
-        { min: 4, max: 4, message: '长度在4位', trigger: 'blur' },
-    ],
+    // mac: [
+    //     { required: true, message: '请输入验证码', trigger: 'blur' },
+    //     { min: 4, max: 4, message: '长度在4位', trigger: 'blur' },
+    // ],
 })
 
 const alreadySend = ref(false)
@@ -33,6 +34,10 @@ const msg_tip = ref('获取短信验证码')
 
 // 获取短信验证码
 const getMsgCode = async (phone) => {
+    code_disabled.value = false
+    setTimeout(() => {
+        code_disabled.value = true
+    }, 1000 * 3);
     if (alreadySend.value) {
         return
     } else {
@@ -94,15 +99,11 @@ const submitForm = (formEl) => {
                 <el-input v-model="ruleForm.password" placeholder="密码" />
             </el-form-item>
             <el-form-item prop="mac">
-                <el-row :gutter="6">
-                    <el-col :span="15">
-                        <el-input v-model="ruleForm.mac" placeholder="验证码" />
-                    </el-col>
-                    <el-col :span="9">
-                        <el-button plain @click="getMsgCode(ruleForm.phoneNumber)">{{ msg_tip }}</el-button>
-                    </el-col>
-                </el-row>
-
+                <div class="msg-code">
+                    <el-input v-model="ruleForm.mac" placeholder="验证码" style="margin-right: 5px;"
+                        :disabled="code_disabled" />
+                    <el-button plain @click="getMsgCode(ruleForm.phoneNumber)">{{ msg_tip }}</el-button>
+                </div>
             </el-form-item>
             <el-form-item>
                 <el-button class="login-btn" type="info" @click="submitForm(ruleFormRef)">
@@ -115,18 +116,26 @@ const submitForm = (formEl) => {
 
 <style scoped>
 .login-container {
+    /* display: inline-block; */
     box-sizing: border-box;
     width: 360px;
-    /* height: 300px; */
-    margin: 20vh auto 30vh auto;
+    /* height: 40vh; */
+    margin: 100px 100px 100px auto;
     border-radius: 10px;
     background-color: #f5f1f167;
-    box-shadow: 10px 10px 10px rgba(0, 0, 0, .5);
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, .8);
     padding: 20px 40px;
+    backdrop-filter: blur(6px);
 }
 
 .login-btn {
     display: inline-block;
+    width: 280px;
+}
+
+.msg-code {
+    display: flex;
+    box-sizing: border-box;
     width: 280px;
 }
 </style>
